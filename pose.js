@@ -409,6 +409,9 @@ async function startCamera(){
     loop();
   }catch(e){ console.error('startCamera',e); if (stream){ try{ stream.getTracks().forEach(t=>t.stop()); }catch(_){} } stream=null; }
 
+  // Show a helpful banner when getUserMedia or related startup code fails
+  try{ if (!stream) showCameraErrorBanner(e && e.message ? e.message : 'Camera access failed'); }catch(_){ /* ignore if banner missing */ }
+
 // Show user-friendly camera error message when getUserMedia fails (useful in OBS Browser Source)
 function showCameraErrorBanner(msg){
   if (cameraErrorEl){

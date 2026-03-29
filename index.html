@@ -184,6 +184,9 @@
           const s = document.createElement('script');
           s.src = src;
           s.async = false;
+          // Allow cross-origin error details to surface (helps diagnose "Script error.")
+          s.crossOrigin = 'anonymous';
+          s.referrerPolicy = 'no-referrer';
           s.onload = () => resolve();
           s.onerror = () => reject(new Error('Failed to load ' + src));
           document.body.appendChild(s);
